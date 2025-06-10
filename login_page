@@ -14,7 +14,7 @@ struct signinformation {
 void menu();
 void login();
 void signUp();
-void checkInfo();
+void information();
 int checkPasswordStrength(const char password[]);
 
 
@@ -66,6 +66,7 @@ void signUp()
 
     printf("Enter full name :- \t ");
     scanf(" %[^\n]", user.name);
+    
 
     // Mobile number validation
     int valid = 0;
@@ -82,18 +83,30 @@ void signUp()
         if (!valid) printf("Mobile number must be exactly 10 digits (numbers only).\n");
     }
 
-    printf("Enter email :- \t ");
+    printf("Enter email: ");
     scanf("%s", user.email);
+    
+     while (strstr(user.email, "@gmail.com") == NULL)
+    {
+    printf("Invalid email! Email must contain '@gmail.com'.\n\n Enter again email:- ");
+    scanf("%s", user.email);
+    }
 
-    printf("Enter username :- \t ");
+
+    printf("Enter username: ");
     scanf("%s", user.username);
 
-   // Password input and strength check
-     do {
+       while (strlen(user.username) < 4) {
+        printf("Username must be at least 4 characters long.\n\n Enter again username :- ");
+        scanf("%s", user.username);
+}
+
+
+ // Password input and strength check
+    do {
         printf("Enter password :- \t ");
         scanf("%s", user.password);
     } while (!checkPasswordStrength(user.password));
-
 
 
     // Save all info in one line
@@ -106,8 +119,7 @@ void signUp()
     fprintf(fptr, "--------------------------\n");
     fclose(fptr);
 
-    printf("\nSign-up successful! You can go to log in.\n");
-    printf("--------------------------------------------------------------------------------\n\n");
+    printf("\nSign-up successful! You can go to log in.\n\n");
     login();
 }
 
@@ -121,7 +133,7 @@ void login() {
         return;
     }
 
-    printf("\t\t\t~ Welcome to Login Page ~\n");
+    printf("\t\t\t\t~ Welcome to Login Page ~\n");
     printf("Enter username: ");
     scanf("%s", user.username);
     printf("Enter password: ");
@@ -178,7 +190,9 @@ int main()
     menu();
     return 0;
 }
-void checkInfo(){
+
+
+void information(){
 	char name[20];
 	char email[30];
 	char mobile_no[15];
@@ -216,6 +230,9 @@ void checkInfo(){
     fclose(fptr);
 }
 
+
+
+
 // Function: Check Password Strength
 int checkPasswordStrength(const char password[]) {
     int hasUpper = 0, hasLower = 0, hasDigit = 0, hasSpecial = 0;
@@ -247,3 +264,5 @@ int checkPasswordStrength(const char password[]) {
         return 0;
     }
 }
+
+
