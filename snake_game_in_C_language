@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <time.h>
+#include <windows.h>
+
+#define width  40 
+#define height  20 
+
+int snakeX, snakeY;
+int fruitX, fruitY;
+int score;
+char direction;
+int gameOver;
+
+
+void setup(){
+    snakeX = width / 2;
+    snakeY = height / 2;
+    fruitX = rand() % (width -2) +1;
+    fruitY = rand() % (height - 2) +1 ;
+    score = 0;
+    direction = 'R';
+    gameOver = 0;
+}
+
+
+void border (){
+    system("cls");
+	int i,j ;
+	for( i =  0; i < height; i++ ){
+	for( j = 0; j < width; j++){
+	// top or bottam border	
+	if (i == 0 || i == height - 1 || j == 0 || j== width -1 )
+	printf("#");
+	else if( i == snakeY && j == snakeX)
+	printf("O"); // snake head
+	else if ( i == fruitY && j == fruitX)
+	printf("F"); // fruite 
+	
+	// inside the area
+	else
+	printf(" "); 
+	
+	}
+	printf("\n");
+	}
+  	printf (" Score :- %d\n", score);
+}
+
+
+void input(){
+	if(_kbhit()){
+		switch(_getch()) {
+			case 'w': direction = 'U'; break ;
+			case 's': direction = 'D'; break ;
+			case 'a': direction = 'L'; break ;
+			case 'd': direction = 'R'; break ;
+		}
+	}
+}
+
+void logic() {
+    switch (direction) {
+        case 'U': snakeY--; break;
+        case 'D': snakeY++; break;
+        case 'L': snakeX--; break;
+        case 'R': snakeX++; break;
+    }
+
+    // Game over on hitting wall
+    if (snakeX <= 0 || snakeX >= width - 1 || snakeY <= 0 || snakeY >= height - 1)
+        gameOver = 1;
+
+    // Eating fruit
+    if (snakeX == fruitX && snakeY == fruitY) {
+        score += 10;
+        fruitX = rand() % (width - 2) + 1;
+        fruitY = rand() % (height - 2) + 1;
+    }
+}
+
+
+int main() {
+	srand(time(NULL));
+	setup();
+
+    while (!gameOver) {
+        border();
+        input();
+        logic();
+        Sleep(150);            // Slow down the loop
+    }
+    
+     printf("Game Over! Final Score: %d\n", score);
+    return 0;
+}
