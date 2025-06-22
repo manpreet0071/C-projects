@@ -4,8 +4,8 @@
 #include <time.h>
 #include <windows.h>
 
-#define width  40 
-#define height  20 
+#define width  45 
+#define height  15 
 
 int snakeX, snakeY;
 int fruitX, fruitY;
@@ -27,12 +27,15 @@ void setup(){
 
 void border (){
     system("cls");
+    printf("\t~ Welcome!!, To The Snake-Game ~\n\n");
 	int i,j ;
+
 	for( i =  0; i < height; i++ ){
 	for( j = 0; j < width; j++){
 	// top or bottam border	
-	if (i == 0 || i == height - 1 || j == 0 || j== width -1 )
+	if (i == 0 || i == height - 1 || j == 0 || j== width -1 ){
 	printf("#");
+	}
 	else if( i == snakeY && j == snakeX)
 	printf("O"); // snake head
 	else if ( i == fruitY && j == fruitX)
@@ -81,17 +84,66 @@ void logic() {
 }
 
 
+
+// Function 1: Main Menu
+void menu()
+{
+    int choice;
+    printf("\t\t\t~ Welcome!!, To The Snake-Game ~\n\n");
+    printf("~ Options :-\n\n");
+    printf("1. Start\n");
+    printf("2. help?\n");
+    printf("3. Exit\n");
+    printf("\n~ Please select an option: \t");
+    scanf("%d", &choice);
+    getchar(); // clear input buffer
+    system("cls");  // Clears screen (Windows only)
+
+    switch (choice)
+    {
+    case 1:
+        printf("\t\t\t~ Welcome!!, To The Snake-Game ~\n\n");
+        break;
+    case 2:
+	    printf("KEYS TO PLAY THE GAME :-\n");    
+	    printf("\n1. 'W' key is used to move snake in UPPER direction.\n");    
+	    printf("2. 'S' key is used to move snake in DOWN direction. \n");    
+	    printf("3. 'D' key is used to move snake in LEFT direction. \n");    
+	    printf("4. 'A key is used to move snake in RIGHT direction. \n");   
+	    printf("\nNOW! PREES THE ENTER KEY TO SEE THE OPTIONS :-\n");   
+	    getchar(); // clear input buffer
+        system("cls");  // Clears screen (Windows only)
+	 menu(); 
+
+    case 3:
+        printf("Exiting the system. Goodbye!\n");
+        exit(0);
+    default:
+        printf("Invalid choice. Please try again.\n");
+        menu();
+        break;
+    }
+}
+
+
+
 int main() {
 	srand(time(NULL));
 	setup();
+    menu();
 
     while (!gameOver) {
         border();
         input();
         logic();
-        Sleep(150);            // Slow down the loop
+        Sleep(100);            // Slow down the loop
     }
     
      printf("Game Over! Final Score: %d\n", score);
     return 0;
+}
+
+
+
+   
 }
