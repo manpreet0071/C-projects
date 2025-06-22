@@ -55,7 +55,7 @@ void border (){
 void input(){
 	if(_kbhit()){
 		switch(_getch()) {
-			case 'w': direction = 'U'; break ;
+			case 'W': direction = 'U'; break ;
 			case 's': direction = 'D'; break ;
 			case 'a': direction = 'L'; break ;
 			case 'd': direction = 'R'; break ;
@@ -88,6 +88,8 @@ void logic() {
 // Function 1: Main Menu
 void menu()
 {
+	
+    system("cls");  // Clears screen (Windows only)
     int choice;
     printf("\t\t\t~ Welcome!!, To The Snake-Game ~\n\n");
     printf("~ Options :-\n\n");
@@ -136,12 +138,18 @@ int main() {
         border();
         input();
         logic();
-        Sleep(100);            // Slow down the loop
+        Sleep(200);            // Slow down the loop
     }
     
      printf("Game Over! Final Score: %d\n", score);
+      printf("\n PREES THE ENTER KEY CONTINUE :-\n"); 
+      getchar(); // clear input buffer
+    menu();
     return 0;
 }
+
+
+
 
 
 
