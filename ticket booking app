@@ -1,0 +1,132 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
+void menu();
+void booking_menu();
+void view();
+void num();
+
+struct data
+{
+    char id[15];
+    char name[20];
+    char date[12];
+    char from[10];
+    char to[30];
+    char phone[13];
+};
+
+struct data user;
+
+int main()
+{
+    menu();
+
+    return 0;
+}
+
+//_____________________________________________________MENU FUNCTION_______________________________________________
+void menu()
+{
+    printf("\n--------------------------------------------------------------------------------\n");
+    int option;
+    printf("\t\t\tWELCOME! TO THE TICKET BOOKING APP.\n\n");
+    printf("Option\n\n");
+    printf("1. Book the ticket\n");
+    printf("2. Check the ticket\n");
+    printf("3. Exit.\n");
+    printf("\n Please select any option :-\t");
+    scanf("%d", &option);
+    printf("\n--------------------------------------------------------------------------------\n");
+    getchar();     // clear input buffer
+    system("cls"); // Clears screen (Windows only)
+
+    switch (option)
+    {
+    case 1:
+        booking_menu();
+        break;
+    case 2:
+        view();
+        break;
+    case 3:
+        printf("Goodbye!\n");
+        break;
+    default:
+        printf("Invalid choice, Try Again.\n");
+        menu();
+        break;
+    }
+}
+
+//_______________________________________________________MENU FUNCTION_____________________________________________
+
+void booking_menu()
+{
+
+    printf("~~~~~~~~~~~~~~~ WLCOME! TO BOOKING SECTION ~~~~~~~~~~~~~~~\n\n");
+    printf("---------------------------------------------\n");
+    printf("please fill this detalis :- \n\n");
+    printf("Name              : ");
+    scanf("%s", &user.name);
+
+    // ------------------------------------phone number --------------------------
+    printf("Phone No.         : ");
+    scanf("%s", &user.phone);
+    while (strlen(user.phone) < 10)
+    {
+        printf("Phone Number Must Be 10 Letters\n");
+        printf("Phone No.         : ");
+        scanf("%s", &user.phone);
+    }
+
+    //----------------------------------------user Id----------------------------
+    printf("ID                : ");
+    scanf("%s", &user.id);
+    while (strlen(user.id) < 12)
+    {
+        printf("User ID Must Be 12 Letters\n");
+         printf("ID                : ");
+        scanf("%s", &user.id);
+    }
+
+    printf("Enter the date    : ");
+    scanf("%s", &user.date);
+    printf("From              : ");
+    scanf("%s", &user.from);
+    printf("To                : ");
+    scanf("%s", &user.to);
+    printf("\n---------------------------------------------\n");
+    printf("Your Ticket has been seccessfuly booked.\n");
+    printf("now you go to check your ticket.");
+    getchar(); // clear input buffer
+    menu();
+}
+
+void num()
+{
+    int ticket_no = rand() % 90000 + 10000; // 5-digit ticket number
+    printf("Ticket No.          : %d", ticket_no);
+}
+
+//________________________________________________________MENU FUNCTION_______________________________________________
+
+void view()
+{
+
+    printf("\nLet's, VIEW YOUR TICKET :- \n\n");
+    num();
+    printf("\n---------------------------------------------");
+    printf("\nName              : %s ", user.name);
+    printf("\nPhone No.         : %s ", user.phone);
+    printf("\nID                : %s ", user.id);
+    printf("\nDate              : %s ", user.date);
+    printf("\nFrom              : %s ", user.from);
+    printf("\nTo                : %s ", user.to);
+    printf("\n---------------------------------------------\n");
+    getchar(); // clear input buffer
+               //    system("cls");  // Clears screen (Windows only)
+    menu();
+}
